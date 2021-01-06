@@ -1,27 +1,23 @@
 package com.example.openclose;
 
+import java.util.LinkedList;
+import java.util.List;
+
 public class Button {
-    public final static int SEND_BUTTON = -1;
+    private final List<ButtonListener> listeners;
 
-    private Dialer dialer;
-    private int token;
+    public Button() {
+        this.listeners = new LinkedList<>();
+    }
 
-
-    public Button(int token, Dialer dialer) {
-        this.token = token;
-        this.dialer = dialer;
+    public void addListener(ButtonListener listener) {
+        assert listener != null;
+        listeners.add(listener);
     }
 
     public void press() {
-        switch (token) {
-            case 0: case 1: case 2: case 3: case 4: case 5: case 6: case 7: case 8: case 9:
-                dialer.enterDigit(token);
-                break;
-            case SEND_BUTTON:
-                dialer.dial();
-                break;
-            default:
-                throw new UnsupportedOperationException("unknown button pressed: token=" + token);
+        for (ButtonListener listener : listeners) {
+            listener.buttonPressed();
         }
     }
 }

@@ -13,6 +13,10 @@ public class Dialer {
         this.radio = radio;
     }
 
+    public Dialer() {
+
+    }
+
     public void enterDigit(int digit) {
         screen.display(digit);
         speaker.beep(digit);
